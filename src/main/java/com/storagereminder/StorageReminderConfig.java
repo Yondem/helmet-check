@@ -11,7 +11,7 @@ public interface StorageReminderConfig extends Config
 	@ConfigItem(
 			keyName = "reminderText",
 			name = "Reminder Text",
-			description = "The text to display in overlay box"
+			description = "The text to display in the reminder"
 	)
 	default String reminderText()
 	{
@@ -25,7 +25,7 @@ public interface StorageReminderConfig extends Config
 	)
 	default Color textColor()
 	{
-		return Color.RED;
+		return Color.WHITE;
 	}
 
 	@ConfigItem(
@@ -35,7 +35,27 @@ public interface StorageReminderConfig extends Config
 	)
 	default Color backgroundColor()
 	{
-		return new Color(0, 0, 0, 150);  // Semi-transparent black
+		return new Color(255, 0, 0, 150);  // Semi-transparent black
+	}
+
+	@ConfigItem(
+			keyName = "borderColor",
+			name = "Border Color",
+			description = "The color of the reminder border"
+	)
+	default Color borderColor()
+	{
+		return Color.BLACK;
+	}
+
+	@ConfigItem(
+			keyName = "maxFlashes",
+			name = "Max Flashes",
+			description = "Maximum number of flashes (0 = flash indefinitely while menu open)"
+	)
+	default int maxFlashes()
+	{
+		return 5;
 	}
 
 	@ConfigItem(
