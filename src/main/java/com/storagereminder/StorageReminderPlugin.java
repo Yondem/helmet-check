@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
 import net.runelite.api.events.GameTick;
+import net.runelite.api.gameval.InterfaceID;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
 import net.runelite.client.config.ConfigManager;
@@ -60,9 +61,8 @@ public class StorageReminderPlugin extends Plugin
 			return;
 		}
 
-		// Check if logout menu is open
-		Widget logoutWindow = client.getWidget(WidgetInfo.WORLD_SWITCHER_LIST);
-		boolean isLogoutMenuOpen = (logoutWindow != null && !logoutWindow.isHidden());
+		// Check if logout menu is open by looking for the logout button in the interface
+		boolean isLogoutMenuOpen = isLogoutInterfaceOpen();
 
 		// Only start flashing when the menu first opens
 		if (isLogoutMenuOpen && !showReminder)
@@ -94,13 +94,36 @@ public class StorageReminderPlugin extends Plugin
 		}
 	}
 
+	/**
+	 * Checks if the logout interface is currently open
+	 * @return true if the logout interface is open
+	 */
+	private boolean isLogoutInterfaceOpen()
+	{
+		// Check for the specific logout panel widget
+		Widget logoutPanel = client.getWidget(WidgetInfo.RESIZABLE_VIEWPORT_LOGOUT_TAB);
+		if (logoutPanel != null && !logoutPanel.isHidden())
+		{
+			return true;
+		}
+
+		// Alternative check for the "Click here to logout" button
+		Widget logoutButton = client.getWidget(WidgetInfo.LOGOUT_BUTTON);
+		if (logoutButton != null && !logoutButton.isHidden())
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	@Provides
 	StorageReminderConfig provideConfig(ConfigManager configManager)
 	{
 		return configManager.getConfig(StorageReminderConfig.class);
 	}
 
-	// Add explicit getter methods to avoid issues with Lombok
+	// Getter methods
 	public boolean isShowReminder()
 	{
 		return showReminder;

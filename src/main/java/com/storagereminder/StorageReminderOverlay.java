@@ -21,8 +21,8 @@ public class StorageReminderOverlay extends Overlay
     private final StorageReminderConfig config;
     private final StorageReminderPlugin plugin;
 
-    private static final int PADDING = 10;
-    private static final int MIN_WIDTH = 200;
+    private static final int PADDING = 20;
+    private static final int MIN_WIDTH = 400;
 
     @Inject
     public StorageReminderOverlay(Client client, StorageReminderConfig config, StorageReminderPlugin plugin)
@@ -39,10 +39,6 @@ public class StorageReminderOverlay extends Overlay
     @Override
     public Dimension render(Graphics2D graphics)
     {
-        if (!config.enableReminder() || !plugin.isShowReminder())
-        {
-            return null;
-        }
 
         // Only show on flashing frames if we're still flashing
         if (!plugin.isFlashState() && plugin.getFlashCount() < config.maxFlashes() * 2)

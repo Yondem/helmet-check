@@ -15,7 +15,7 @@ public interface StorageReminderConfig extends Config
 	)
 	default String reminderText()
 	{
-		return "Don't forget your items in storage!";
+		return "Don't forget group storage items!";
 	}
 
 	@ConfigItem(
@@ -35,7 +35,7 @@ public interface StorageReminderConfig extends Config
 	)
 	default Color backgroundColor()
 	{
-		return new Color(255, 0, 0, 150);  // Semi-transparent black
+		return new Color(255, 0, 0, 150);
 	}
 
 	@ConfigItem(
@@ -51,20 +51,11 @@ public interface StorageReminderConfig extends Config
 	@ConfigItem(
 			keyName = "maxFlashes",
 			name = "Max Flashes",
-			description = "Maximum number of flashes (0 = flash indefinitely while menu open)"
+			description = "Maximum number of flashes (0 = flash indefinitely)"
 	)
 	default int maxFlashes()
 	{
-		return 5;
+		return 0;
 	}
 
-	@ConfigItem(
-			keyName = "enableReminder",
-			name = "Enable Reminder",
-			description = "Enable the storage reminder"
-	)
-	default boolean enableReminder()
-	{
-		return true;
-	}
 }
